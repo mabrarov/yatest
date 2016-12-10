@@ -1,8 +1,16 @@
+//
+// Checks if sequence of braces is logically correct (and each brace has a pair)
+//
+
+#if defined(WIN32)
+#include <tchar.h>
+#endif
+
 #include <cstdlib>
 #include <exception>
+#include <string>
 #include <iostream>
 #include <vector>
-#include <string>
 
 namespace {
 
@@ -69,7 +77,11 @@ bool is_valid_sequence_of_braces(const std::string& sequence_of_braces)
 
 } // anonymous namespace
 
+#if defined(WIN32)
+int _tmain(int /*argc*/, _TCHAR* /*argv*/[])
+#else
 int main(int /*argc*/, char* /*argv*/[])
+#endif
 {
   try
   {
