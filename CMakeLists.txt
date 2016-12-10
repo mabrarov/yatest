@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.2)
-project(yandex_test)
+project(yatest)
 
 add_executable(${PROJECT_NAME}
     "src/main.cpp")
