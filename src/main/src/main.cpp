@@ -39,7 +39,7 @@
 #if defined(WIN32)
 int _tmain(int argc, _TCHAR* argv[])
 #else
-int main(int /*argc*/, char* /*argv*/[])
+int main(int argc, char* argv[])
 #endif
 {
   try

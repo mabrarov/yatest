@@ -15,8 +15,6 @@ endif()
 add_executable(yatest
     "src/main.cpp")
 
-add_executable(Yatest::main ALIAS yatest)
-
 target_compile_features(yatest
     PRIVATE
     cxx_auto_type)
@@ -27,5 +25,6 @@ target_compile_definitions(yatest
 
 target_link_libraries(yatest
     PRIVATE
+    Yatest::coverage
     Yatest::codecvt_cast
     Yatest::solver)

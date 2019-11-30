@@ -6,6 +6,7 @@ add_executable(solver_test
 
 target_link_libraries(solver_test
     PRIVATE
+    Yatest::coverage
     gtest_main
     Yatest::solver)
 

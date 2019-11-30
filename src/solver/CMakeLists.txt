@@ -23,5 +23,10 @@ target_compile_definitions(solver
     PUBLIC
     ${compile_definitions})
 
-target_include_directories(solver PUBLIC
+target_include_directories(solver
+    PUBLIC
     "include")
+
+target_link_libraries(solver
+    PRIVATE
+    Yatest::coverage)

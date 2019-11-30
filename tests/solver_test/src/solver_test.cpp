@@ -64,4 +64,44 @@ TEST(is_valid_sequence_of_brackets, complex)
   ASSERT_TRUE(is_valid_sequence_of_brackets("[()[[{}]]({})]"));
 }
 
+TEST(is_valid_sequence_of_brackets, missing_right_bracket_in_the_middle)
+{
+  ASSERT_FALSE(is_valid_sequence_of_brackets("[()[[{]]({})]"));
+}
+
+TEST(is_valid_sequence_of_brackets, missing_right_bracket_at_the_beginning)
+{
+  ASSERT_FALSE(is_valid_sequence_of_brackets("[()[[{}]]({})"));
+}
+
+TEST(is_valid_sequence_of_brackets, missing_right_bracket_at_the_end)
+{
+  ASSERT_FALSE(is_valid_sequence_of_brackets("[]()[[{}]]({}){"));
+}
+
+TEST(is_valid_sequence_of_brackets, missing_left_bracket_in_the_middle)
+{
+  ASSERT_FALSE(is_valid_sequence_of_brackets("[()[]{}}]]({})]"));
+}
+
+TEST(is_valid_sequence_of_brackets, missing_left_bracket_at_the_beginning)
+{
+  ASSERT_FALSE(is_valid_sequence_of_brackets("[]}()[[{}]]({})"));
+}
+
+TEST(is_valid_sequence_of_brackets, missing_left_bracket_at_the_end)
+{
+  ASSERT_FALSE(is_valid_sequence_of_brackets("[]()[[{}]]({}){}]"));
+}
+
+TEST(is_valid_sequence_of_brackets, wrong_order_couple)
+{
+  ASSERT_FALSE(is_valid_sequence_of_brackets(")("));
+}
+
+TEST(is_valid_sequence_of_brackets, wrong_order)
+{
+  ASSERT_FALSE(is_valid_sequence_of_brackets("[]()[[{]}]({}){}"));
+}
+
 } // namespace yatest
