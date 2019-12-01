@@ -1,0 +1,207 @@
+language: 'cpp'
+sudo: 'required'
+
+cache:
+  directories:
+    - '${HOME}/downloads'
+
+env:
+  global:
+    - COVERAGE_BUILD_CANDIDATE: '0'
+    - DEPENDENCIES_HOME: '${HOME}/dependencies'
+    - DOWNLOADS_HOME: '${HOME}/downloads'
+    - BUILD_HOME: '${TRAVIS_BUILD_DIR}/build'
+    - CURL_CONNECT_TIMEOUT: '300'
+    - CURL_MAX_TIME: '1800'
+    - CURL_RETRY: '10'
+    - CURL_RETRY_DELAY: '10'
+    - PIP_RETRY: '10'
+    - CODECOV_VERSION: '2.0.15'
+
+matrix:
+  include:
+    # Default GCC (GCC 7.4 on Ubuntu Bionic). Used for test coverage.
+    - os: 'linux'
+      dist: 'bionic'
+      env: 'CXX_COMPILER_FAMILY=gcc C_COMPILER=gcc CXX_COMPILER=g++ BUILD_TYPE=DEBUG COVERAGE_BUILD_CANDIDATE=1'
+      compiler: 'gcc'
+      addons: &apt-gcc
+        apt:
+          packages:
+            - 'cmake'
+            - 'cmake-data'
+            - 'curl'
+            - 'ca-certificates'
+            - 'lcov'
+            - 'python3-pip'
+          sources: &gcc-package-sources
+            - sourceline: 'ppa:ubuntu-toolchain-r/test'
+    - os: 'linux'
+      dist: 'bionic'
+      env: 'CXX_COMPILER_FAMILY=gcc C_COMPILER=gcc CXX_COMPILER=g++ BUILD_TYPE=RELEASE'
+      compiler: 'gcc'
+      addons: *apt-gcc
+    # GCC 9. Used for collecting information about test coverage.
+    - os: 'linux'
+      dist: 'bionic'
+      env: 'CXX_COMPILER_FAMILY=gcc C_COMPILER=gcc-9 CXX_COMPILER=g++-9 BUILD_TYPE=RELEASE'
+      compiler: 'gcc'
+      addons: &apt-gcc9
+        apt:
+          packages:
+            - 'cmake'
+            - 'cmake-data'
+            - 'gcc-9'
+            - 'g++-9'
+            - 'curl'
+            - 'ca-certificates'
+          sources: *gcc-package-sources
+    - os: 'linux'
+      dist: 'bionic'
+      env: 'CXX_COMPILER_FAMILY=gcc C_COMPILER=gcc-9 CXX_COMPILER=g++-9 BUILD_TYPE=DEBUG'
+      compiler: 'gcc'
+      addons: *apt-gcc9
+    # GCC 8
+    - os: 'linux'
+      dist: 'bionic'
+      env: 'CXX_COMPILER_FAMILY=gcc C_COMPILER=gcc-8 CXX_COMPILER=g++-8 BUILD_TYPE=RELEASE'
+      compiler: 'gcc'
+      addons: &apt-gcc8
+        apt:
+          packages:
+            - 'cmake'
+            - 'cmake-data'
+            - 'gcc-8'
+            - 'g++-8'
+            - 'curl'
+            - 'ca-certificates'
+          sources: *gcc-package-sources
+    - os: 'linux'
+      dist: 'bionic'
+      env: 'CXX_COMPILER_FAMILY=gcc C_COMPILER=gcc-8 CXX_COMPILER=g++-8 BUILD_TYPE=DEBUG'
+      compiler: 'gcc'
+      addons: *apt-gcc8
+    # GCC 6
+    - os: 'linux'
+      dist: 'bionic'
+      env: 'CXX_COMPILER_FAMILY=gcc C_COMPILER=gcc-6 CXX_COMPILER=g++-6 BUILD_TYPE=RELEASE'
+      compiler: 'gcc'
+      addons: &apt-gcc6
+        apt:
+          packages:
+            - 'cmake'
+            - 'cmake-data'
+            - 'gcc-6'
+            - 'g++-6'
+            - 'curl'
+            - 'ca-certificates'
+          sources: *gcc-package-sources
+    - os: 'linux'
+      dist: 'bionic'
+      env: 'CXX_COMPILER_FAMILY=gcc C_COMPILER=gcc-6 CXX_COMPILER=g++-6 BUILD_TYPE=DEBUG'
+      compiler: 'gcc'
+      addons: *apt-gcc6
+    # Clang 9.0
+    - os: 'linux'
+      dist: 'bionic'
+      env: 'CXX_COMPILER_FAMILY=clang C_COMPILER=clang-9 CXX_COMPILER=clang++-9 BUILD_TYPE=RELEASE'
+      compiler: 'clang'
+      addons: &apt-clang9
+        apt:
+          packages:
+            - 'cmake'
+            - 'cmake-data'
+            - 'clang-9'
+            - 'curl'
+            - 'ca-certificates'
+          sources:
+            - sourceline: 'ppa:ubuntu-toolchain-r/test'
+            - sourceline: 'deb http://apt.llvm.org/bionic/ llvm-toolchain-bionic-9 main'
+              key_url: 'https://apt.llvm.org/llvm-snapshot.gpg.key'
+    - os: 'linux'
+      dist: 'bionic'
+      env: 'CXX_COMPILER_FAMILY=clang C_COMPILER=clang-9 CXX_COMPILER=clang++-9 BUILD_TYPE=DEBUG'
+      compiler: 'clang'
+      addons: *apt-clang9
+    # Clang 8.0
+    - os: 'linux'
+      dist: 'bionic'
+      env: 'CXX_COMPILER_FAMILY=clang C_COMPILER=clang-8 CXX_COMPILER=clang++-8 BUILD_TYPE=RELEASE'
+      compiler: 'clang'
+      addons: &apt-clang8
+        apt:
+          packages:
+            - 'cmake'
+            - 'cmake-data'
+            - 'clang-8'
+            - 'curl'
+            - 'ca-certificates'
+          sources:
+            - sourceline: 'ppa:ubuntu-toolchain-r/test'
+            - 'llvm-toolchain-bionic-8'
+    - os: 'linux'
+      dist: 'bionic'
+      env: 'CXX_COMPILER_FAMILY=clang C_COMPILER=clang-8 CXX_COMPILER=clang++-8 BUILD_TYPE=DEBUG'
+      compiler: 'clang'
+      addons: *apt-clang8
+    # Clang 7.0
+    - os: 'linux'
+      dist: 'bionic'
+      env: 'CXX_COMPILER_FAMILY=clang C_COMPILER=clang-7 CXX_COMPILER=clang++-7 BUILD_TYPE=RELEASE'
+      compiler: 'clang'
+      addons: &apt-clang7
+        apt:
+          packages:
+            - 'cmake'
+            - 'cmake-data'
+            - 'clang-7'
+            - 'curl'
+            - 'ca-certificates'
+          sources:
+            - sourceline: 'ppa:ubuntu-toolchain-r/test'
+            - 'llvm-toolchain-bionic-7'
+    - os: 'linux'
+      dist: 'bionic'
+      env: 'CXX_COMPILER_FAMILY=clang C_COMPILER=clang-7 CXX_COMPILER=clang++-7 BUILD_TYPE=DEBUG'
+      compiler: 'clang'
+      addons: *apt-clang7
+    # Clang 6.0
+    - os: 'linux'
+      dist: 'bionic'
+      env: 'CXX_COMPILER_FAMILY=clang C_COMPILER=clang-6.0 CXX_COMPILER=clang++-6.0 BUILD_TYPE=RELEASE'
+      compiler: 'clang'
+      addons: &apt-clang6
+        apt:
+          packages:
+            - 'cmake'
+            - 'cmake-data'
+            - 'clang-6.0'
+            - 'curl'
+            - 'ca-certificates'
+          sources:
+            - sourceline: 'ppa:ubuntu-toolchain-r/test'
+            - 'llvm-toolchain-bionic-6.0'
+    - os: 'linux'
+      dist: 'bionic'
+      env: 'CXX_COMPILER_FAMILY=clang C_COMPILER=clang-6.0 CXX_COMPILER=clang++-6.0 BUILD_TYPE=DEBUG'
+      compiler: 'clang'
+      addons: *apt-clang6
+    # MacOS, Clang Apple LLVM version 11.0.0
+    - os: 'osx'
+      osx_image: 'xcode11.2'
+      env: 'CXX_COMPILER_FAMILY=clang C_COMPILER=clang CXX_COMPILER=clang++ BUILD_TYPE=RELEASE'
+      compiler: 'clang'
+      addons: &homebrew
+        homebrew:
+          packages:
+            - 'gnu-sed'
+            - 'cmake'
+    - os: 'osx'
+      osx_image: 'xcode11.2'
+      env: 'CXX_COMPILER_FAMILY=clang C_COMPILER=clang CXX_COMPILER=clang++ BUILD_TYPE=DEBUG'
+      compiler: 'clang'
+      addons: *homebrew
+
+install: 'source ./scripts/travis/install.sh'
+
+script: './scripts/travis/build.sh'
