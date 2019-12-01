@@ -2,7 +2,7 @@
 
 [![License](https://img.shields.io/github/license/mabrarov/yatest)](https://github.com/mabrarov/yatest/tree/master/LICENSE)
 [![Travis CI build status](https://travis-ci.org/mabrarov/yatest.svg?branch=master)](https://travis-ci.org/mabrarov/yatest)
-[![AppVeyor CI build status](https://ci.appveyor.com/api/projects/status/u5b0i7897pmucqi0/branch/master?svg=true)](https://ci.appveyor.com/project/mabrarov/java-yatest/branch/master)
+[![AppVeyor CI build status](https://ci.appveyor.com/api/projects/status/u5b0i7897pmucqi0/branch/master?svg=true)](https://ci.appveyor.com/project/mabrarov/yatest/branch/master)
 [![Code coverage status](https://codecov.io/gh/mabrarov/yatest/branch/master/graph/badge.svg)](https://codecov.io/gh/mabrarov/yatest/branch/master)
 
 Checks if input text represents valid sequence of brackets (round, square, curly) only, like:
