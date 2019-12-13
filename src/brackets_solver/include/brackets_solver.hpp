@@ -14,8 +14,8 @@
 // limitations under the License.
 //
 
-#ifndef YATEST_SOLVER_HPP
-#define YATEST_SOLVER_HPP
+#ifndef YATEST_BRACKETS_SOLVER_HPP
+#define YATEST_BRACKETS_SOLVER_HPP
 
 #include <string>
 
@@ -25,4 +25,4 @@ bool is_valid_sequence_of_brackets(const std::string& sequence_of_brackets);
 
 }
 
-#endif // YATEST_SOLVER_HPP
+#endif // YATEST_BRACKETS_SOLVER_HPP

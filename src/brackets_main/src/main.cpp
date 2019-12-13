@@ -34,7 +34,7 @@
 #include <codecvt_cast.hpp>
 #endif
 
-#include <solver.hpp>
+#include <brackets_solver.hpp>
 
 #if defined(WIN32)
 int _tmain(int argc, _TCHAR* argv[])

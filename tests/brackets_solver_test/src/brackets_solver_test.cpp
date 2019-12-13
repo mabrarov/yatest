@@ -15,7 +15,7 @@
 //
 
 #include <gtest/gtest.h>
-#include <solver.hpp>
+#include <brackets_solver.hpp>
 
 namespace yatest {
 
