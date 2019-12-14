@@ -5,11 +5,7 @@
 [![AppVeyor CI build status](https://ci.appveyor.com/api/projects/status/u5b0i7897pmucqi0/branch/master?svg=true)](https://ci.appveyor.com/project/mabrarov/yatest/branch/master)
 [![Code coverage status](https://codecov.io/gh/mabrarov/yatest/branch/master/graph/badge.svg)](https://codecov.io/gh/mabrarov/yatest/branch/master)
 
-Checks if input text represents valid sequence of brackets (round, square, curly) only, like:
-
-```text
-()[]{}[[()]]{}
-```
+C++ tests.
 
 ## Building
 
@@ -111,30 +107,8 @@ Checks if input text represents valid sequence of brackets (round, square, curly
 
 ## Usage
 
-1. Run `brackets` executable and output its exit code
+Refer to
 
-   * Unix / Linux
+1. [src/brackets_main/README.md](src/brackets_main/README.md)
+1. [src/top_main/README.md](src/top_main/README.md)
 
-     ```bash
-     echo $("${build_dir}/src/brackets_main/brackets" "()[]{}[[()]]{}")
-     ```
-
-   * Windows, Visual Studio CMake generator
-
-     ```cmd
-     "%build_dir%\src\brackets_main\%build_type%\brackets.exe" "()[]{}[[()]]{}" ^
-     && echo %errorlevel%
-     ```
-
-   * Windows, NMake / MinGW makefiles CMake generator
-
-     ```cmd
-     "%build_dir%\src\brackets_main\brackets.exe" "()[]{}[[()]]{}" ^
-     && echo %errorlevel%
-     ```
-
-1. Check output, expected output is
-
-   ```text
-   0
-   ```
