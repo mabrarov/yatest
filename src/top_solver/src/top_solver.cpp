@@ -63,7 +63,7 @@ yatest::top::result_type yatest::top::count(std::size_t n) const
     {
       continue;
     }
-    sorted.emplace(item.first, item.second);
+    sorted.emplace(item);
     if (size == n)
     {
       sorted.erase(std::prev(sorted.end()));
