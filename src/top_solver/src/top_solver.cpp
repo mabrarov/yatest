@@ -70,7 +70,8 @@ yatest::top::result_type yatest::top::count(std::size_t n) const
     {
       continue;
     }
-    std::move_backward(lesser, std::prev(end), std::next(lesser));
+    const auto next_lesser = std::next(lesser);
+    std::move_backward(lesser, std::prev(end), end);
     *lesser = item;
   }
   return result;
