@@ -15,21 +15,14 @@
 //
 
 #include <unordered_map>
-#include <queue>
+#include <vector>
+#include <utility>
+#include <algorithm>
 #include <top_solver.hpp>
 
 class yatest::top::impl
 {
 public:
-  class greater_item
-  {
-  public:
-    bool operator()(const item_type& left, const item_type& right)
-    {
-      return left.second > right.second;
-    };
-  };
-
   std::unordered_map<std::string, std::size_t> dict;
 };
 
@@ -49,20 +42,35 @@ void yatest::top::apply(const std::string& s)
 
 yatest::top::result_type yatest::top::count(std::size_t n) const
 {
-  std::priority_queue<item_type, std::vector<item_type>, impl::greater_item> heap;
+  typedef std::pair<std::string, std::size_t> dict_item_type;
+
+  std::vector<item_type> result;
+  if (0 == n)
+  {
+    return result;
+  }
+  result.reserve((std::min)(n, impl_->dict.size()));
   for (const auto& item : impl_->dict)
   {
-    heap.emplace(item.first, item.second);
-    if (heap.size() > n)
+    const auto begin = result.begin();
+    const auto end = result.end();
+    const auto lesser = std::upper_bound(begin, end, item,
+        [](const dict_item_type& left, const dict_item_type& right) -> bool
+        {
+          return left.second > right.second;
+        });
+    if (result.size() < n)
     {
-      heap.pop();
+      result.emplace(lesser, item.first, item.second);
+      continue;
     }
-  }
-  result_type result(heap.size());
-  for (auto i = result.rbegin(); !heap.empty(); ++i)
-  {
-    (*i) = heap.top();
-    heap.pop();
+    if (lesser == end)
+    {
+      continue;
+    }
+    std::move_backward(lesser, std::prev(end), end);
+    lesser->first = item.first;
+    lesser->second = item.second;
   }
   return result;
 }
