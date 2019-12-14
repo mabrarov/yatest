@@ -34,7 +34,7 @@
 #include <codecvt_cast.hpp>
 #endif
 
-#include <brackets_solver.hpp>
+#include <top_solver.hpp>
 
 #if defined(WIN32)
 int _tmain(int argc, _TCHAR* argv[])
@@ -56,21 +56,28 @@ int main(int argc, char* argv[])
 #else
       const std::string app_name(argv[0]);
 #endif
-      std::cerr << "Usage: " << app_name << " <sequence_of_brackets>\n"
-          << "Returns zero exit code if sequence of brackets is valid and non zero exit code otherwise"
+      std::cerr << "Usage: " << app_name << " number_of_top_frequent_strings"
           << std::endl;
       return EXIT_FAILURE;
     }
-#ifdef TCHAR_WIDE_CHAR
-    const auto text = codecvt_cast::out(std::wstring(argv[1]), wide_codecvt);
-#else
-    const std::string text(argv[1]);
-#endif
-    if (yatest::is_valid_sequence_of_brackets(text))
+    const auto n = std::stoul(argv[1]);
+    yatest::top::result_type top_n;
     {
-      return EXIT_SUCCESS;
+      yatest::top top;
+      while (!std::cin.eof())
+      {
+        std::string s;
+        std::cin >> s;
+        top.apply(s);
+      }
+      top_n = top.count(n);
     }
-    return EXIT_FAILURE;
+    for (const auto& i : top_n)
+    {
+      std::cout << i.first << '\n';
+    }
+    std::cout << std::flush;
+    return EXIT_SUCCESS;
   }
   catch (const std::exception& e)
   {
