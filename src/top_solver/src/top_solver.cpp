@@ -14,8 +14,8 @@
 // limitations under the License.
 //
 
-#include <unordered_map>
 #include <utility>
+#include <unordered_map>
 #include <set>
 #include <top_solver.hpp>
 
@@ -54,11 +54,17 @@ yatest::top::result_type yatest::top::count(std::size_t n) const
   {
     return result_type();
   }
+  const impl::greater greater;
   std::multiset<item_type, impl::greater> sorted;
   for (const auto& item : impl_->dict)
   {
+    const auto size = sorted.size();
+    if (size == n && !greater(item, *sorted.rbegin()))
+    {
+      continue;
+    }
     sorted.emplace(item.first, item.second);
-    if (sorted.size() > n)
+    if (size == n)
     {
       sorted.erase(std::prev(sorted.end()));
     }
