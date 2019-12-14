@@ -14,9 +14,8 @@
 // limitations under the License.
 //
 
-#include <unordered_map>
-#include <vector>
 #include <utility>
+#include <unordered_map>
 #include <algorithm>
 #include <top_solver.hpp>
 
@@ -44,7 +43,7 @@ yatest::top::result_type yatest::top::count(std::size_t n) const
 {
   typedef std::pair<std::string, std::size_t> dict_item_type;
 
-  std::vector<item_type> result;
+  result_type result;
   if (0 == n)
   {
     return result;
