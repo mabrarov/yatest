@@ -49,20 +49,20 @@ void yatest::top::apply(const std::string& s)
 
 yatest::top::result_type yatest::top::count(std::size_t n) const
 {
-  std::priority_queue<item_type, std::vector<item_type>, impl::greater_item> top_n;
+  std::priority_queue<item_type, std::vector<item_type>, impl::greater_item> heap;
   for (const auto& item : impl_->dict)
   {
-    top_n.emplace(item.first, item.second);
-    if (top_n.size() > n)
+    heap.emplace(item.first, item.second);
+    if (heap.size() > n)
     {
-      top_n.pop();
+      heap.pop();
     }
   }
-  result_type result(top_n.size());
-  for (auto i = result.rbegin(); !top_n.empty(); ++i)
+  result_type result(heap.size());
+  for (auto i = result.rbegin(); !heap.empty(); ++i)
   {
-    (*i) = top_n.top();
-    top_n.pop();
+    (*i) = heap.top();
+    heap.pop();
   }
   return result;
 }
