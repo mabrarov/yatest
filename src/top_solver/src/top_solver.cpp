@@ -16,7 +16,6 @@
 
 #include <unordered_map>
 #include <queue>
-#include <algorithm>
 #include <top_solver.hpp>
 
 class yatest::top::impl
@@ -59,13 +58,11 @@ yatest::top::result_type yatest::top::count(std::size_t n) const
       top_n.pop();
     }
   }
-  result_type result;
-  result.reserve(n);
-  while (!top_n.empty())
+  result_type result(top_n.size());
+  for (auto i = result.rend(); !top_n.empty(); ++i)
   {
-    result.push_back(top_n.top());
+    (*i) = top_n.top();
     top_n.pop();
   }
-  std::reverse(result.begin(), result.end());
-  return std::move(result);
+  return result;
 }
