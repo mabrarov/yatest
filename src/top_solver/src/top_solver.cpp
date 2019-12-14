@@ -59,7 +59,7 @@ yatest::top::result_type yatest::top::count(std::size_t n) const
     }
   }
   result_type result(top_n.size());
-  for (auto i = result.rend(); !top_n.empty(); ++i)
+  for (auto i = result.rbegin(); !top_n.empty(); ++i)
   {
     (*i) = top_n.top();
     top_n.pop();
