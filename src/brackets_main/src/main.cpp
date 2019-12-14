@@ -34,7 +34,7 @@
 #include <codecvt_cast.hpp>
 #endif
 
-#include <solver.hpp>
+#include <brackets_solver.hpp>
 
 #if defined(WIN32)
 int _tmain(int argc, _TCHAR* argv[])
@@ -48,12 +48,14 @@ int main(int argc, char* argv[])
     typedef std::codecvt<wchar_t, char, mbstate_t> wide_codecvt_type;
     const std::locale sys_locale("");
     const auto& wide_codecvt = std::use_facet<wide_codecvt_type>(sys_locale);
-    const auto app_name = codecvt_cast::out(std::wstring(argv[0]), wide_codecvt);
-#else
-    const std::string app_name(argv[0]);
 #endif
     if (argc < 2)
     {
+#ifdef TCHAR_WIDE_CHAR
+      const auto app_name = codecvt_cast::out(std::wstring(argv[0]), wide_codecvt);
+#else
+      const std::string app_name(argv[0]);
+#endif
       std::cerr << "Usage: " << app_name << " <sequence_of_brackets>\n"
           << "Returns zero exit code if sequence of brackets is valid and non zero exit code otherwise"
           << std::endl;

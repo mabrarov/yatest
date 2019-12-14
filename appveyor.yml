@@ -67,7 +67,11 @@ test_script:
   - ps: '.\scripts\appveyor\test.ps1'
 
 artifacts:
-  - path: 'build\src\main$(ARTIFACT_PATH_SUFFIX)*.exe'
-    name: 'yatest'
-  - path: 'build\tests\solver_test$(ARTIFACT_PATH_SUFFIX)*.exe'
-    name: 'solver_test'
+  - path: 'build\src\brackets_main$(ARTIFACT_PATH_SUFFIX)*.exe'
+    name: 'brackets'
+  - path: 'build\tests\brackets_solver_test$(ARTIFACT_PATH_SUFFIX)*.exe'
+    name: 'brackets_solver_test'
+  - path: 'build\src\top_main$(ARTIFACT_PATH_SUFFIX)*.exe'
+    name: 'top'
+  - path: 'build\tests\top_solver_test$(ARTIFACT_PATH_SUFFIX)*.exe'
+    name: 'top_solver_test'

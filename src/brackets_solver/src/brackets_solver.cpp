@@ -16,8 +16,7 @@
 
 #include <string>
 #include <vector>
-
-#include <solver.hpp>
+#include <brackets_solver.hpp>
 
 namespace {
 
