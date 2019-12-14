@@ -1,6 +1,8 @@
 Set-Location -Path "${env:BUILD_HOME}"
 $ctest_cmd = "ctest.exe --build-config ""${env:CONFIGURATION}"" --verbose"
-if (${env:COVERAGE_BUILD} -eq "True") {
+if (${env:COVERAGE_BUILD} -ne "True") {
+  $test_cmd = "${ctest_cmd}"
+} else {
   $coverage_report_folder = "${env:COVERAGE_WORK_FOLDER}\report"
   $coverage_report_archive = "${env:COVERAGE_WORK_FOLDER}\report.zip"
   New-Item -Path "${env:COVERAGE_WORK_FOLDER}" -ItemType "directory" | out-null
