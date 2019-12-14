@@ -15,19 +15,20 @@
 //
 
 #include <unordered_map>
-#include <queue>
+#include <utility>
+#include <set>
 #include <top_solver.hpp>
 
 class yatest::top::impl
 {
 public:
-  class greater_item
+  class greater
   {
   public:
-    bool operator()(const item_type& left, const item_type& right)
+    bool operator()(const item_type& left, const item_type& right) const
     {
       return left.second > right.second;
-    };
+    }
   };
 
   std::unordered_map<std::string, std::size_t> dict;
@@ -49,20 +50,18 @@ void yatest::top::apply(const std::string& s)
 
 yatest::top::result_type yatest::top::count(std::size_t n) const
 {
-  std::priority_queue<item_type, std::vector<item_type>, impl::greater_item> heap;
+  if (0 == n)
+  {
+    return result_type();
+  }
+  std::multiset<item_type, impl::greater> sorted;
   for (const auto& item : impl_->dict)
   {
-    heap.emplace(item.first, item.second);
-    if (heap.size() > n)
+    sorted.emplace(item.first, item.second);
+    if (sorted.size() > n)
     {
-      heap.pop();
+      sorted.erase(std::prev(sorted.end()));
     }
   }
-  result_type result(heap.size());
-  for (auto i = result.rbegin(); !heap.empty(); ++i)
-  {
-    (*i) = heap.top();
-    heap.pop();
-  }
-  return result;
+  return result_type(sorted.begin(), sorted.end());
 }

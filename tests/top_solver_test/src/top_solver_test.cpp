@@ -133,20 +133,31 @@ TEST(top_n, different_frequency_desc_order)
   const std::string s1 = "a";
   const std::string s2 = "b";
   const std::string s3 = "c";
+  const std::string s4 = "d";
+  const std::string s5 = "e";
 
   top solver;
-  solver.apply(s1);
-  solver.apply(s1);
-  solver.apply(s1);
-  solver.apply(s2);
-  solver.apply(s2);
+  solver.apply(s5);
+  solver.apply(s5);
+  solver.apply(s5);
+  solver.apply(s5);
+  solver.apply(s5);
+  solver.apply(s4);
+  solver.apply(s4);
+  solver.apply(s4);
+  solver.apply(s4);
   solver.apply(s3);
+  solver.apply(s3);
+  solver.apply(s3);
+  solver.apply(s2);
+  solver.apply(s2);
+  solver.apply(s1);
   const auto top_3 = solver.count(3);
 
   ASSERT_EQ(3, top_3.size());
-  ASSERT_EQ(top_3[0], top::item_type(s1, 3));
-  ASSERT_EQ(top_3[1], top::item_type(s2, 2));
-  ASSERT_EQ(top_3[2], top::item_type(s3, 1));
+  ASSERT_EQ(top_3[0], top::item_type(s5, 5));
+  ASSERT_EQ(top_3[1], top::item_type(s4, 4));
+  ASSERT_EQ(top_3[2], top::item_type(s3, 3));
 }
 
 TEST(top_n, different_frequency_asc_order)
@@ -154,6 +165,8 @@ TEST(top_n, different_frequency_asc_order)
   const std::string s1 = "a";
   const std::string s2 = "b";
   const std::string s3 = "c";
+  const std::string s4 = "d";
+  const std::string s5 = "e";
 
   top solver;
   solver.apply(s1);
@@ -162,12 +175,53 @@ TEST(top_n, different_frequency_asc_order)
   solver.apply(s3);
   solver.apply(s3);
   solver.apply(s3);
+  solver.apply(s4);
+  solver.apply(s4);
+  solver.apply(s4);
+  solver.apply(s4);
+  solver.apply(s5);
+  solver.apply(s5);
+  solver.apply(s5);
+  solver.apply(s5);
+  solver.apply(s5);
   const auto top_3 = solver.count(3);
 
   ASSERT_EQ(3, top_3.size());
-  ASSERT_EQ(top_3[0], top::item_type(s3, 3));
-  ASSERT_EQ(top_3[1], top::item_type(s2, 2));
-  ASSERT_EQ(top_3[2], top::item_type(s1, 1));
+  ASSERT_EQ(top_3[0], top::item_type(s5, 5));
+  ASSERT_EQ(top_3[1], top::item_type(s4, 4));
+  ASSERT_EQ(top_3[2], top::item_type(s3, 3));
+}
+
+TEST(top_n, different_frequency_mixed_order)
+{
+  const std::string s1 = "a";
+  const std::string s2 = "b";
+  const std::string s3 = "c";
+  const std::string s4 = "d";
+  const std::string s5 = "e";
+
+  top solver;
+  solver.apply(s5);
+  solver.apply(s5);
+  solver.apply(s5);
+  solver.apply(s2);
+  solver.apply(s2);
+  solver.apply(s3);
+  solver.apply(s3);
+  solver.apply(s1);
+  solver.apply(s3);
+  solver.apply(s4);
+  solver.apply(s4);
+  solver.apply(s4);
+  solver.apply(s4);
+  solver.apply(s5);
+  solver.apply(s5);
+  const auto top_3 = solver.count(3);
+
+  ASSERT_EQ(3, top_3.size());
+  ASSERT_EQ(top_3[0], top::item_type(s5, 5));
+  ASSERT_EQ(top_3[1], top::item_type(s4, 4));
+  ASSERT_EQ(top_3[2], top::item_type(s3, 3));
 }
 
 TEST(top_n, same_frequency)
