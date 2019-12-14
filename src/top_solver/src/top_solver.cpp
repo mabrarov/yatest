@@ -48,28 +48,29 @@ yatest::top::result_type yatest::top::count(std::size_t n) const
   {
     return result;
   }
+  const auto comp =
+      [](const dict_item_type& left, const dict_item_type& right) -> bool
+      {
+        return left.second > right.second;
+      };
   result.reserve((std::min)(n, impl_->dict.size()));
   for (const auto& item : impl_->dict)
   {
     const auto begin = result.begin();
     const auto end = result.end();
-    const auto lesser = std::upper_bound(begin, end, item,
-        [](const dict_item_type& left, const dict_item_type& right) -> bool
-        {
-          return left.second > right.second;
-        });
-    if (result.size() < n)
+    auto size = result.size();
+    if (size >= n && !comp(item, *result.rbegin()))
+    {
+      continue;
+    }
+    const auto lesser = std::upper_bound(begin, end, item, comp);
+    if (size < n)
     {
       result.emplace(lesser, item.first, item.second);
       continue;
     }
-    if (lesser == end)
-    {
-      continue;
-    }
     std::move_backward(lesser, std::prev(end), end);
-    lesser->first = item.first;
-    lesser->second = item.second;
+    *lesser = item;
   }
   return result;
 }
