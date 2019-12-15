@@ -66,7 +66,7 @@ yatest::top::result_type yatest::top::count(std::size_t n) const
     const auto lesser_pos = std::upper_bound(begin, end, item, greater);
     if (size < n)
     {
-      result.emplace(lesser_pos, item);
+      result.insert(lesser_pos, item);
       continue;
     }
     std::move_backward(lesser_pos, std::prev(end), end);
