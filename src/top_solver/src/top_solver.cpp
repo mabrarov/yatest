@@ -17,6 +17,7 @@
 #include <utility>
 #include <memory>
 #include <functional>
+#include <iterator>
 #include <unordered_map>
 #include <algorithm>
 #include <top_solver.hpp>
@@ -120,7 +121,7 @@ yatest::top::result_type yatest::top::count(std::size_t n) const
   sorted.reserve((std::min)(n, impl_->dict.size()));
   for (const auto& item : impl_->dict)
   {
-    auto size = sorted.size();
+    const auto size = sorted.size();
     if (size == n && !greater(item, *sorted.rbegin()))
     {
       continue;
@@ -138,9 +139,10 @@ yatest::top::result_type yatest::top::count(std::size_t n) const
   }
   result_type result;
   result.reserve(sorted.size());
-  for (const auto& item : sorted)
-  {
-    result.emplace_back(item.first.value(), item.second);
-  }
+  std::transform(sorted.begin(), sorted.end(), std::back_inserter(result),
+      [](const impl::dict_item_type& v) -> item_type
+      {
+        return item_type(v.first.value(), v.second);
+      });
   return result;
 }
