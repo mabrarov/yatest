@@ -31,34 +31,39 @@ public:
   class key
   {
   public:
-    key(string_shared_ptr shared_ptr, string_ptr ptr)
-      : shared_ptr_(std::move(shared_ptr))
-      , ptr_(ptr)
-    {
-    }
-
-    static key own(const std::string& s)
-    {
-      return key(std::make_shared<std::string>(s), nullptr);
-    }
-
     static key reference(const std::string& s)
     {
-      return key(string_shared_ptr(), &s);
+      return key(string_shared_ptr(), &s, std::hash<std::string>()(s));
+    }
+
+    key own() const
+    {
+      auto shared_ptr = std::make_shared<const std::string>(*ptr_);
+      auto ptr = shared_ptr.get();
+      return key(std::move(shared_ptr), ptr, hash_);
     }
 
     const std::string& value() const
     {
-      if (shared_ptr_)
-      {
-        return *shared_ptr_;
-      }
       return *ptr_;
     }
 
+    std::size_t hash() const
+    {
+      return hash_;
+    }
+
   private:
+    key(string_shared_ptr shared_ptr, string_ptr ptr, std::size_t hash)
+      : shared_ptr_(std::move(shared_ptr))
+      , ptr_(ptr)
+      , hash_(hash)
+    {
+    }
+
     string_shared_ptr shared_ptr_;
     string_ptr ptr_;
+    std::size_t hash_;
   };
 
   class hash
@@ -66,7 +71,7 @@ public:
   public:
     std::size_t operator()(const key& v) const
     {
-      return std::hash<std::string>()(v.value());
+      return v.hash();
     }
   };
 
@@ -95,10 +100,11 @@ yatest::top::~top()
 
 void yatest::top::apply(const std::string& s)
 {
-  const auto existing_pos = impl_->dict.find(impl::key::reference(s));
+  const auto key = impl::key::reference(s);
+  const auto existing_pos = impl_->dict.find(key);
   if (existing_pos == impl_->dict.end())
   {
-    impl_->dict.emplace(impl::key::own(s), 1);
+    impl_->dict.emplace(key.own(), 1);
   }
   else
   {
