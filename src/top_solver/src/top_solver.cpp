@@ -38,7 +38,7 @@ public:
 
     static key own(const std::string& s)
     {
-      return key(std::make_shared<std::string>(s), 0);
+      return key(std::make_shared<std::string>(s), nullptr);
     }
 
     static key reference(const std::string& s)
@@ -63,7 +63,7 @@ public:
   class hash
   {
   public:
-    bool operator()(const key& v) const
+    std::size_t operator()(const key& v) const
     {
       return std::hash<std::string>()(v.value());
     }
@@ -94,7 +94,6 @@ yatest::top::~top()
 
 void yatest::top::apply(const std::string& s)
 {
-
   const auto existing_pos = impl_->dict.find(impl::key::reference(s));
   if (existing_pos == impl_->dict.end())
   {
