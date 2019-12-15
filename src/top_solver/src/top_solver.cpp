@@ -56,7 +56,7 @@ yatest::top::result_type yatest::top::count(std::size_t n) const
   result.reserve((std::min)(n, impl_->dict.size()));
   for (const auto& item : impl_->dict)
   {
-    auto size = result.size();
+    const auto size = result.size();
     if (size == n && !greater(item, *result.rbegin()))
     {
       continue;
