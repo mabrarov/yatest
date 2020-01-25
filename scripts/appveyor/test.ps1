@@ -48,7 +48,7 @@ if (${env:COVERAGE_BUILD} -eq "True") {
     throw "Downloading of Codecov Bash uploader failed with exit code ${LastExitCode}"
   }
   $env:PATH = 'C:\msys64\usr\bin;' + $env:PATH
-  bash "${codecov_bash_uploader}" -t "${env:CODECOV_TOKEN}" -f "${codecov_coverage_file}" -F "${env:CODECOV_FLAG}" -X gcov -R "${codecov_root_folder}"
+  bash "${codecov_bash_uploader}" -f "${codecov_coverage_file}" -F "${env:CODECOV_FLAG}" -X gcov -R "${codecov_root_folder}"
   if (${LastExitCode} -ne 0) {
     throw "Codecov failed with exit code ${LastExitCode}"
   }
