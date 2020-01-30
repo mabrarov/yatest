@@ -31,24 +31,7 @@ if (${env:COVERAGE_BUILD} -eq "True") {
 
   $codecov_coverage_file = ${env:COBERTURA_COVERAGE_FILE} -replace "\\", "/"
   $codecov_root_folder = ${env:APPVEYOR_BUILD_FOLDER} -replace "\\", "/"
-  $codecov_home = "${env:DEPENDENCIES_FOLDER}\codecov"
-  if (!(Test-Path -Path "${codecov_home}")) {
-    New-Item -Path "${codecov_home}" -ItemType "directory" | out-null
-  }
-  $codecov_bash_uploader = "${codecov_home}\codecov.sh"
-  curl.exe `
-    --connect-timeout "${env:CURL_CONNECT_TIMEOUT}" `
-    --max-time "${env:CURL_MAX_TIME}" `
-    --retry "${env:CURL_RETRY}" `
-    --retry-delay "${env:CURL_RETRY_DELAY}" `
-    --show-error --silent --location `
-    --output "${codecov_bash_uploader}" `
-    "https://codecov.io/bash"
-  if (${LastExitCode} -ne 0) {
-    throw "Downloading of Codecov Bash uploader failed with exit code ${LastExitCode}"
-  }
-  $env:PATH = 'C:\msys64\usr\bin;' + $env:PATH
-  bash "${codecov_bash_uploader}" -t "${env:CODECOV_TOKEN}" -f "${codecov_coverage_file}" -F "${env:CODECOV_FLAG}" -X gcov -R "${codecov_root_folder}"
+  appveyor-retry codecov --required --token "${env:CODECOV_TOKEN}" --file "${codecov_coverage_file}" --flags "${env:CODECOV_FLAG}" -X gcov --root "${codecov_root_folder}"
   if (${LastExitCode} -ne 0) {
     throw "Codecov failed with exit code ${LastExitCode}"
   }
