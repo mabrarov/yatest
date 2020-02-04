@@ -16,21 +16,12 @@
 
 #include <utility>
 #include <unordered_map>
-#include <set>
+#include <algorithm>
 #include <top_solver.hpp>
 
 class yatest::top::impl
 {
 public:
-  class greater
-  {
-  public:
-    bool operator()(const item_type& left, const item_type& right) const
-    {
-      return left.second > right.second;
-    }
-  };
-
   std::unordered_map<std::string, std::size_t> dict;
 };
 
@@ -50,24 +41,36 @@ void yatest::top::apply(const std::string& s)
 
 yatest::top::result_type yatest::top::count(std::size_t n) const
 {
+  typedef std::pair<std::string, std::size_t> dict_item_type;
+
+  result_type result;
   if (0 == n)
   {
-    return result_type();
+    return result;
   }
-  const impl::greater greater;
-  std::multiset<item_type, impl::greater> sorted;
+  const auto greater =
+      [](const dict_item_type& left, const dict_item_type& right) -> bool
+      {
+        return left.second > right.second;
+      };
+  result.reserve((std::min)(n, impl_->dict.size()));
   for (const auto& item : impl_->dict)
   {
-    const auto size = sorted.size();
-    if (size == n && !greater(item, *sorted.rbegin()))
+    const auto size = result.size();
+    if (size == n && !greater(item, *result.rbegin()))
     {
       continue;
     }
-    sorted.insert(item);
-    if (size == n)
+    const auto begin = result.begin();
+    const auto end = result.end();
+    const auto lesser_pos = std::upper_bound(begin, end, item, greater);
+    if (size < n)
     {
-      sorted.erase(std::prev(sorted.end()));
+      result.insert(lesser_pos, item);
+      continue;
     }
+    std::move_backward(lesser_pos, std::prev(end), end);
+    *lesser_pos = item;
   }
-  return result_type(sorted.begin(), sorted.end());
+  return result;
 }
