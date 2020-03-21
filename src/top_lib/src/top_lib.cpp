@@ -17,7 +17,7 @@
 #include <utility>
 #include <unordered_map>
 #include <set>
-#include <top_solver.hpp>
+#include <top_lib.hpp>
 
 class yatest::top::impl
 {

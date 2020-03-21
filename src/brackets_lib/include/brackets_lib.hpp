@@ -14,37 +14,15 @@
 // limitations under the License.
 //
 
-#ifndef YATEST_TOP_SOLVER_HPP
-#define YATEST_TOP_SOLVER_HPP
+#ifndef YATEST_BRACKETS_LIB_HPP
+#define YATEST_BRACKETS_LIB_HPP
 
 #include <string>
-#include <vector>
-#include <utility>
-#include <memory>
-#include <cstdlib>
 
 namespace yatest {
 
-class top
-{
-public:
-  typedef std::pair<std::string, std::size_t> item_type;
-  typedef std::vector<item_type> result_type;
-
-  top();
-
-  ~top();
-
-  void apply(const std::string& s);
-
-  result_type count(std::size_t n) const;
-
-private:
-  class impl;
-
-  std::unique_ptr<impl> impl_;
-};
+bool is_valid_sequence_of_brackets(const std::string& sequence_of_brackets);
 
 }
 
-#endif // YATEST_TOP_SOLVER_HPP
+#endif // YATEST_BRACKETS_LIB_HPP

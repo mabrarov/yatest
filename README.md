@@ -109,6 +109,6 @@ C++ tests.
 
 Refer to
 
-1. [src/brackets_main/README.md](src/brackets_main/README.md)
-1. [src/top_main/README.md](src/top_main/README.md)
+1. [src/brackets/README.md](src/brackets/README.md)
+1. [src/top/README.md](src/top/README.md)
 

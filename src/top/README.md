@@ -18,7 +18,7 @@ Conditions
    * Unix / Linux
 
      ```bash
-     cat <<EOF | "${build_dir}/src/top_main/top" 2
+     cat <<EOF | "${build_dir}/src/top/top" 2
      a
      a
      a
@@ -46,7 +46,7 @@ Conditions
      echo c
      echo c
      echo c
-     ) | "%build_dir%\src\top_main\%build_type%\top.exe" 2
+     ) | "%build_dir%\src\top\%build_type%\top.exe" 2
      ```
 
    * Windows, NMake / MinGW makefiles CMake generator
@@ -63,7 +63,7 @@ Conditions
      echo c
      echo c
      echo c
-     ) | "%build_dir%\src\top_main\top.exe" 2
+     ) | "%build_dir%\src\top\top.exe" 2
      ```
 
 1. Check output, expected output is

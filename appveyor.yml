@@ -1,4 +1,4 @@
-image: 'Visual Studio 2015'
+image: 'Visual Studio 2019'
 
 platform:
   - 'x64'
@@ -28,15 +28,6 @@ environment:
   CODECOV_VERSION: '2.0.15'
 
   matrix:
-    - TOOLCHAIN: 'msvc'
-      MSVC_VERSION: '14.0'
-      RUNTIME_LINKAGE: 'static'
-      COVERAGE_BUILD_CANDIDATE: '1'
-    - TOOLCHAIN: 'mingw'
-      MINGW_VERSION: '8.1.0'
-      MINGW_RT_VERSION: '6'
-      MINGW_REVISION: '0'
-      RUNTIME_LINKAGE: 'static'
     - APPVEYOR_BUILD_WORKER_IMAGE: 'Visual Studio 2019'
       TOOLCHAIN: 'msvc'
       MSVC_VERSION: '14.2'
@@ -44,6 +35,23 @@ environment:
     - APPVEYOR_BUILD_WORKER_IMAGE: 'Visual Studio 2017'
       TOOLCHAIN: 'msvc'
       MSVC_VERSION: '14.1'
+      RUNTIME_LINKAGE: 'static'
+    - APPVEYOR_BUILD_WORKER_IMAGE: 'Visual Studio 2015'
+      TOOLCHAIN: 'msvc'
+      MSVC_VERSION: '14.0'
+      RUNTIME_LINKAGE: 'static'
+      COVERAGE_BUILD_CANDIDATE: '1'
+    - APPVEYOR_BUILD_WORKER_IMAGE: 'Visual Studio 2015'
+      TOOLCHAIN: 'mingw'
+      MINGW_VERSION: '8.1.0'
+      MINGW_RT_VERSION: '6'
+      MINGW_REVISION: '0'
+      RUNTIME_LINKAGE: 'static'
+    - APPVEYOR_BUILD_WORKER_IMAGE: 'Visual Studio 2015'
+      TOOLCHAIN: 'mingw'
+      MINGW_VERSION: '7.3.0'
+      MINGW_RT_VERSION: '5'
+      MINGW_REVISION: '0'
       RUNTIME_LINKAGE: 'static'
 
 matrix:
@@ -67,11 +75,11 @@ test_script:
   - ps: '.\scripts\appveyor\test.ps1'
 
 artifacts:
-  - path: 'build\src\brackets_main$(ARTIFACT_PATH_SUFFIX)*.exe'
+  - path: 'build\src\brackets$(ARTIFACT_PATH_SUFFIX)*.exe'
     name: 'brackets'
-  - path: 'build\tests\brackets_solver_test$(ARTIFACT_PATH_SUFFIX)*.exe'
-    name: 'brackets_solver_test'
-  - path: 'build\src\top_main$(ARTIFACT_PATH_SUFFIX)*.exe'
+  - path: 'build\tests\brackets_test$(ARTIFACT_PATH_SUFFIX)*.exe'
+    name: 'brackets_test'
+  - path: 'build\src\top$(ARTIFACT_PATH_SUFFIX)*.exe'
     name: 'top'
-  - path: 'build\tests\top_solver_test$(ARTIFACT_PATH_SUFFIX)*.exe'
-    name: 'top_solver_test'
+  - path: 'build\tests\top_test$(ARTIFACT_PATH_SUFFIX)*.exe'
+    name: 'top_test'

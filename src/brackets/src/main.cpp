@@ -34,7 +34,7 @@
 #include <codecvt_cast.hpp>
 #endif
 
-#include <brackets_solver.hpp>
+#include <brackets_lib.hpp>
 
 #if defined(WIN32)
 int _tmain(int argc, _TCHAR* argv[])
@@ -66,11 +66,7 @@ int main(int argc, char* argv[])
 #else
     const std::string text(argv[1]);
 #endif
-    if (yatest::is_valid_sequence_of_brackets(text))
-    {
-      return EXIT_SUCCESS;
-    }
-    return EXIT_FAILURE;
+    return yatest::is_valid_sequence_of_brackets(text) ? EXIT_SUCCESS : EXIT_FAILURE;
   }
   catch (const std::exception& e)
   {

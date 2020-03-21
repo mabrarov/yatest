@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.2)
-project(brackets_main)
+project(top)
 
 set(compile_definitions )
 if(WIN32)
@@ -12,19 +12,19 @@ if(MINGW)
     set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -municode")
 endif()
 
-add_executable(brackets
+add_executable(top
     "src/main.cpp")
 
-target_compile_features(brackets
+target_compile_features(top
     PRIVATE
     cxx_auto_type)
 
-target_compile_definitions(brackets
+target_compile_definitions(top
     PRIVATE
     ${compile_definitions})
 
-target_link_libraries(brackets
+target_link_libraries(top
     PRIVATE
     Yatest::coverage
     Yatest::codecvt_cast
-    Yatest::brackets_solver)
+    Yatest::top_lib)
