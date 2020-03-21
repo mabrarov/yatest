@@ -16,7 +16,7 @@
 
 #include <algorithm>
 #include <gtest/gtest.h>
-#include <top_solver.hpp>
+#include <top_lib.hpp>
 
 namespace yatest {
 

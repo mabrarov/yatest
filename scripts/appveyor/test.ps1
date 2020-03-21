@@ -7,10 +7,10 @@ if (${env:COVERAGE_BUILD} -ne "True") {
   $coverage_report_archive = "${env:COVERAGE_WORK_FOLDER}\report.zip"
   New-Item -Path "${env:COVERAGE_WORK_FOLDER}" -ItemType "directory" | out-null
   $test_cmd = "OpenCppCoverage.exe --quiet --export_type ""html:${coverage_report_folder}"" --export_type ""cobertura:${env:COBERTURA_COVERAGE_FILE}"" --sources ""${env:APPVEYOR_BUILD_FOLDER}"""
-  $test_cmd = "${test_cmd} --excluded_sources ""${env:APPVEYOR_BUILD_FOLDER}\extern"""
-  $test_cmd = "${test_cmd} --excluded_sources ""${env:APPVEYOR_BUILD_FOLDER}\src\brackets_main"""
-  $test_cmd = "${test_cmd} --excluded_sources ""${env:APPVEYOR_BUILD_FOLDER}\src\top_main"""
-  $test_cmd = "${test_cmd} --excluded_sources ""${env:APPVEYOR_BUILD_FOLDER}\tests"""
+  $test_cmd = "${test_cmd} --excluded_sources ""${env:APPVEYOR_BUILD_FOLDER}\extern\"""
+  $test_cmd = "${test_cmd} --excluded_sources ""${env:APPVEYOR_BUILD_FOLDER}\src\brackets\"""
+  $test_cmd = "${test_cmd} --excluded_sources ""${env:APPVEYOR_BUILD_FOLDER}\src\top\"""
+  $test_cmd = "${test_cmd} --excluded_sources ""${env:APPVEYOR_BUILD_FOLDER}\tests\"""
   $test_cmd = "${test_cmd} --modules ""${env:BUILD_HOME}\tests"" --cover_children --working_dir ""${env:BUILD_HOME}"" -- ${ctest_cmd}"
 }
 

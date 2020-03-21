@@ -13,20 +13,20 @@ Checks if input text represents valid sequence of brackets (round, square, curly
    * Unix / Linux
 
      ```bash
-     echo $("${build_dir}/src/brackets_main/brackets" "()[]{}[[()]]{}")
+     echo $("${build_dir}/src/brackets/brackets" "()[]{}[[()]]{}")
      ```
 
    * Windows, Visual Studio CMake generator
 
      ```cmd
-     "%build_dir%\src\brackets_main\%build_type%\brackets.exe" "()[]{}[[()]]{}" ^
+     "%build_dir%\src\brackets\%build_type%\brackets.exe" "()[]{}[[()]]{}" ^
      && echo %errorlevel%
      ```
 
    * Windows, NMake / MinGW makefiles CMake generator
 
      ```cmd
-     "%build_dir%\src\brackets_main\brackets.exe" "()[]{}[[()]]{}" ^
+     "%build_dir%\src\brackets\brackets.exe" "()[]{}[[()]]{}" ^
      && echo %errorlevel%
      ```
 
