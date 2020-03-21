@@ -186,21 +186,6 @@ matrix:
       env: 'CXX_COMPILER_FAMILY=clang C_COMPILER=clang-6.0 CXX_COMPILER=clang++-6.0 BUILD_TYPE=DEBUG'
       compiler: 'clang'
       addons: *apt-clang6
-    # MacOS, Clang Apple LLVM version 11.0.0
-    - os: 'osx'
-      osx_image: 'xcode11.2'
-      env: 'CXX_COMPILER_FAMILY=clang C_COMPILER=clang CXX_COMPILER=clang++ BUILD_TYPE=RELEASE'
-      compiler: 'clang'
-      addons: &homebrew
-        homebrew:
-          packages:
-            - 'gnu-sed'
-            - 'cmake'
-    - os: 'osx'
-      osx_image: 'xcode11.2'
-      env: 'CXX_COMPILER_FAMILY=clang C_COMPILER=clang CXX_COMPILER=clang++ BUILD_TYPE=DEBUG'
-      compiler: 'clang'
-      addons: *homebrew
 
 install: 'source ./scripts/travis/install.sh'
 
