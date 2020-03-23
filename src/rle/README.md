@@ -1,4 +1,4 @@
-# Brackets
+# RLE
 
 Transforms text consisting of A-Z characters from text like:
 
