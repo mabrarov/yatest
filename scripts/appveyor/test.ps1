@@ -11,6 +11,7 @@ if (${env:COVERAGE_BUILD} -ne "True") {
   $test_cmd = "${test_cmd} --excluded_sources ""${env:APPVEYOR_BUILD_FOLDER}\src\brackets\"""
   $test_cmd = "${test_cmd} --excluded_sources ""${env:APPVEYOR_BUILD_FOLDER}\src\top\"""
   $test_cmd = "${test_cmd} --excluded_sources ""${env:APPVEYOR_BUILD_FOLDER}\src\rle\"""
+  $test_cmd = "${test_cmd} --excluded_sources ""${env:APPVEYOR_BUILD_FOLDER}\src\stone_jewellery\"""
   $test_cmd = "${test_cmd} --excluded_sources ""${env:APPVEYOR_BUILD_FOLDER}\tests\"""
   $test_cmd = "${test_cmd} --modules ""${env:BUILD_HOME}\tests"" --cover_children --working_dir ""${env:BUILD_HOME}"" -- ${ctest_cmd}"
 }

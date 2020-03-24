@@ -46,6 +46,7 @@ if [[ "${COVERAGE_BUILD}" -ne 0 ]]; then
     "${TRAVIS_BUILD_DIR}/src/brackets/*" \
     "${TRAVIS_BUILD_DIR}/src/top/*" \
     "${TRAVIS_BUILD_DIR}/src/rle/*" \
+    "${TRAVIS_BUILD_DIR}/src/stone_jewellery/*" \
     "${TRAVIS_BUILD_DIR}/tests/*" \
     "${DEPENDENCIES_HOME}/*" \
     -o lcov.info --rc lcov_branch_coverage=1
