@@ -89,5 +89,5 @@ artifacts:
     name: 'brackets_test'
   - path: 'build\tests\rle_test$(ARTIFACT_PATH_SUFFIX)*.exe'
     name: 'rle_test'
-  - path: 'build\tests\stone_jewellery_test(ARTIFACT_PATH_SUFFIX)*.exe'
+  - path: 'build\tests\stone_jewellery_test$(ARTIFACT_PATH_SUFFIX)*.exe'
     name: 'stone_jewellery_test'
