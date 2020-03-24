@@ -15,13 +15,9 @@ endif()
 add_executable(rle
     "src/main.cpp")
 
-target_compile_features(rle
-    PRIVATE
-    cxx_auto_type)
+target_compile_features(rle PRIVATE cxx_auto_type)
 
-target_compile_definitions(rle
-    PRIVATE
-    ${compile_definitions})
+target_compile_definitions(rle PRIVATE ${compile_definitions})
 
 target_link_libraries(rle
     PRIVATE

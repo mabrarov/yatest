@@ -29,7 +29,7 @@ class bad_conversion : public std::runtime_error
 {
 public:
   bad_conversion()
-    : std::runtime_error(0)
+    : std::runtime_error(std::string())
   {
   }
 };
