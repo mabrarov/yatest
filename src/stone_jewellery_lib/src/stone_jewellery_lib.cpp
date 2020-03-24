@@ -16,16 +16,19 @@
 
 #include <stdexcept>
 #include <algorithm>
-#include <set>
+#include <vector>
 #include <stone_jewellery_lib.hpp>
 
 namespace {
+
+const char MIN_CHAR = 'a';
+const char MAX_CHAR = 'z';
 
 void validate_lower_case_latin_only(const std::string& text)
 {
   for (const auto c : text)
   {
-    if (c < 'a' || 'z' < c)
+    if (c < MIN_CHAR || MAX_CHAR < c)
     {
       throw std::invalid_argument("Input text should consist of a-z only");
     }
@@ -39,15 +42,14 @@ std::size_t yatest::count_stone_jewellery(const std::string& jewellery,
 {
   validate_lower_case_latin_only(jewellery);
   validate_lower_case_latin_only(stones);
-  std::set<char> jewelery_set;
+  std::vector<int> jewelery_set(MAX_CHAR - MIN_CHAR + 1, 0);
   for (const auto c : jewellery)
   {
-    jewelery_set.insert(c);
+    jewelery_set[c - MIN_CHAR] = 1;
   }
-  const auto jewelery_set_end = jewelery_set.end();
   return std::count_if(stones.begin(), stones.end(),
-      [&jewelery_set, &jewelery_set_end](char c)
+      [&jewelery_set](char c)
   {
-    return jewelery_set_end != jewelery_set.find(c);
+    return 0 != jewelery_set[c - MIN_CHAR];
   });
 }
