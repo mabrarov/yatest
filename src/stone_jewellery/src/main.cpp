@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2019 Marat Abrarov (abrarov@gmail.com)
+// Copyright (c) 2020 Marat Abrarov (abrarov@gmail.com)
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -18,23 +18,11 @@
 #include <tchar.h>
 #endif
 
-#if defined(WIN32) && (defined(_UNICODE) || defined(UNICODE))
-#define TCHAR_WIDE_CHAR
-#else
-#undef  TCHAR_WIDE_CHAR
-#endif
-
 #include <cstdlib>
 #include <exception>
 #include <string>
 #include <iostream>
-
-#ifdef TCHAR_WIDE_CHAR
-#include <locale>
-#include <codecvt_cast.hpp>
-#endif
-
-#include <rle_lib.hpp>
+#include <stone_jewellery_lib.hpp>
 
 #if defined(WIN32)
 int _tmain(int argc, _TCHAR* argv[])
@@ -44,27 +32,11 @@ int main(int argc, char* argv[])
 {
   try
   {
-#ifdef TCHAR_WIDE_CHAR
-    typedef std::codecvt<wchar_t, char, std::mbstate_t> wide_codecvt_type;
-    const std::locale sys_locale("");
-    const auto& wide_codecvt = std::use_facet<wide_codecvt_type>(sys_locale);
-#endif
-    if (argc < 2)
-    {
-#ifdef TCHAR_WIDE_CHAR
-      const auto app_name = codecvt_cast::out(std::wstring(argv[0]), wide_codecvt);
-#else
-      const std::string app_name(argv[0]);
-#endif
-      std::cerr << "Usage: " << app_name << " <text_to_transform>" << std::endl;
-      return EXIT_FAILURE;
-    }
-#ifdef TCHAR_WIDE_CHAR
-    const auto text = codecvt_cast::out(std::wstring(argv[1]), wide_codecvt);
-#else
-    const std::string text(argv[1]);
-#endif
-    std::cout << text << '\n' << yatest::rle(text);
+    std::string jewellery;
+    std::cin >> jewellery;
+    std::string stones;
+    std::cin >> stones;
+    std::cout << yatest::count_stone_jewellery(jewellery, stones);
     return EXIT_SUCCESS;
   }
   catch (const std::exception& e)

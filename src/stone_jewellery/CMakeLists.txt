@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.2)
-project(rle)
+project(stone_jewellery)
 
 set(compile_definitions )
 if(WIN32)
@@ -12,15 +12,14 @@ if(MINGW)
     set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -municode")
 endif()
 
-add_executable(rle
+add_executable(stone_jewellery
     "src/main.cpp")
 
-target_compile_features(rle PRIVATE cxx_auto_type)
+target_compile_definitions(stone_jewellery
+    PRIVATE
+    ${compile_definitions})
 
-target_compile_definitions(rle PRIVATE ${compile_definitions})
-
-target_link_libraries(rle
+target_link_libraries(stone_jewellery
     PRIVATE
     Yatest::coverage
-    Yatest::codecvt_cast
-    Yatest::rle_lib)
+    Yatest::stone_jewellery_lib)
