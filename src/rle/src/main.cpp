@@ -45,7 +45,7 @@ int main(int argc, char* argv[])
   try
   {
 #ifdef TCHAR_WIDE_CHAR
-    typedef std::codecvt<wchar_t, char, mbstate_t> wide_codecvt_type;
+    typedef std::codecvt<wchar_t, char, std::mbstate_t> wide_codecvt_type;
     const std::locale sys_locale("");
     const auto& wide_codecvt = std::use_facet<wide_codecvt_type>(sys_locale);
 #endif

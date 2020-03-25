@@ -37,11 +37,11 @@ public:
 template <typename CharType, typename Byte>
 std::basic_string<CharType> in(
     const std::basic_string<Byte>& external_str,
-    const std::codecvt<CharType, Byte, mbstate_t>& codecvt)
+    const std::codecvt<CharType, Byte, std::mbstate_t>& codecvt)
 {
   typedef std::basic_string<CharType> wstring;
   typedef std::basic_string<Byte>     string;
-  typedef std::codecvt<CharType, Byte, mbstate_t> codecvt_type;
+  typedef std::codecvt<CharType, Byte, std::mbstate_t> codecvt_type;
 
   typename string::size_type external_str_size = external_str.length();
   const Byte* first_external = external_str.data();
@@ -51,13 +51,11 @@ std::basic_string<CharType> in(
   wstring internal_str;
 
   // Zero initialized
-  typename codecvt_type::state_type state;
-  std::memset(&state, 0, sizeof(state));
-
+  typename codecvt_type::state_type state = std::mbstate_t();
   typename wstring::size_type out_buf_size =
       static_cast<typename wstring::size_type>(
           codecvt.length(state, first_external, last_external,
-              internal_str.max_size()));
+              external_str_size));
 
   std::unique_ptr<CharType[]> out_buf(new CharType[out_buf_size]);
 
@@ -89,11 +87,11 @@ std::basic_string<CharType> in(
 template <typename CharType, typename Byte>
 std::basic_string<Byte> out(
     const std::basic_string<CharType>& internal_str,
-    const std::codecvt<CharType, Byte, mbstate_t>& codecvt)
+    const std::codecvt<CharType, Byte, std::mbstate_t>& codecvt)
 {
   typedef std::basic_string<CharType> wstring;
   typedef std::basic_string<Byte>     string;
-  typedef std::codecvt<CharType, Byte, mbstate_t> codecvt_type;
+  typedef std::codecvt<CharType, Byte, std::mbstate_t> codecvt_type;
 
   string external_str;
 
@@ -112,9 +110,7 @@ std::basic_string<Byte> out(
   Byte* next_external  = first_external;
 
   // Zero initialized
-  typename codecvt_type::state_type state;
-  std::memset(&state, 0, sizeof(state));
-
+  typename codecvt_type::state_type state = std::mbstate_t();
   typename codecvt_type::result r = codecvt.out(state,
       first_internal, last_internal, next_internal,
       first_external, last_external, next_external);
