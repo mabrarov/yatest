@@ -26,50 +26,50 @@ typedef std::codecvt<char, char, std::mbstate_t> noconv_codecvt_type;
 
 TEST(codecvt_cast_out, empty)
 {
-  const std::locale& locale = std::locale::classic();
-  const auto& wide_codecvt = std::use_facet<wide_codecvt_type>(locale);
+  const auto& wide_codecvt =
+      std::use_facet<wide_codecvt_type>(std::locale::classic());
   ASSERT_EQ("", out(std::wstring(), wide_codecvt));
 }
 
 TEST(codecvt_cast_out, latin)
 {
-  const std::locale& locale = std::locale::classic();
-  const auto& wide_codecvt = std::use_facet<wide_codecvt_type>(locale);
+  const auto& wide_codecvt =
+      std::use_facet<wide_codecvt_type>(std::locale::classic());
   ASSERT_EQ("ABc01+)", out(std::wstring(L"ABc01+)"), wide_codecvt));
 }
 
 TEST(codecvt_cast_out, noconv)
 {
-  const std::locale& locale = std::locale::classic();
-  const auto& noconv_codecvt = std::use_facet<noconv_codecvt_type>(locale);
+  const auto& noconv_codecvt =
+      std::use_facet<noconv_codecvt_type>(std::locale::classic());
   ASSERT_EQ("test", out(std::string("test"), noconv_codecvt));
 }
 
 TEST(codecvt_cast_out, bad_cast)
 {
-  const std::locale& locale = std::locale::classic();
-  const auto& wide_codecvt = std::use_facet<wide_codecvt_type>(locale);
+  const auto& wide_codecvt =
+      std::use_facet<wide_codecvt_type>(std::locale::classic());
   ASSERT_THROW(out(std::wstring(L"\u20B5"), wide_codecvt), codecvt_cast::bad_conversion);
 }
 
 TEST(codecvt_cast_in, empty)
 {
-  const std::locale& locale = std::locale::classic();
-  const auto& wide_codecvt = std::use_facet<wide_codecvt_type>(locale);
+  const auto& wide_codecvt =
+      std::use_facet<wide_codecvt_type>(std::locale::classic());
   ASSERT_EQ(L"", in(std::string(), wide_codecvt));
 }
 
 TEST(codecvt_cast_in, latin)
 {
-  const std::locale& locale = std::locale::classic();
-  const auto& wide_codecvt = std::use_facet<wide_codecvt_type>(locale);
+  const auto& wide_codecvt =
+      std::use_facet<wide_codecvt_type>(std::locale::classic());
   ASSERT_EQ(L"ABc01+)", in(std::string("ABc01+)"), wide_codecvt));
 }
 
 TEST(codecvt_cast_in, noconv)
 {
-  const std::locale& locale = std::locale::classic();
-  const auto& noconv_codecvt = std::use_facet<noconv_codecvt_type>(locale);
+  const auto& noconv_codecvt =
+      std::use_facet<noconv_codecvt_type>(std::locale::classic());
   ASSERT_EQ("test", in(std::string("test"), noconv_codecvt));
 }
 
