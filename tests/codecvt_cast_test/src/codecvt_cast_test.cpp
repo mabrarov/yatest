@@ -14,7 +14,6 @@
 // limitations under the License.
 //
 
-#include <stdexcept>
 #include <locale>
 #include <gtest/gtest.h>
 #include <codecvt_cast.hpp>
