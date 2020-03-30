@@ -20,33 +20,33 @@
 
 namespace {
 
-const char MIN_CHAR = 'a';
-const char MAX_CHAR = 'z';
+const char min_char = 'a';
+const char max_char = 'z';
 
 }
 
 std::size_t yatest::count_stone_jewellery(const std::string& jewellery,
     const std::string& stones)
 {
-  std::vector<int> jewelery_set(MAX_CHAR - MIN_CHAR + 1, 0);
+  std::vector<int> jewelery_set(max_char - min_char + 1, 0);
   for (const auto j : jewellery)
   {
-    if (j < MIN_CHAR || MAX_CHAR < j)
+    if (j < min_char || max_char < j)
     {
       throw std::invalid_argument(std::string("Jewellery should consist of ")
-          + MIN_CHAR + '-' + MAX_CHAR + " only");
+          + min_char + '-' + max_char + " only");
     }
-    jewelery_set[j - MIN_CHAR] = 1;
+    jewelery_set[j - min_char] = 1;
   }
   std::size_t count = 0;
   for (const auto s : stones)
   {
-    if (s < MIN_CHAR || MAX_CHAR < s)
+    if (s < min_char || max_char < s)
     {
       throw std::invalid_argument(std::string("Stones should consist of ")
-          + MIN_CHAR + '-' + MAX_CHAR + " only");
+          + min_char + '-' + max_char + " only");
     }
-    count += jewelery_set[s - MIN_CHAR];
+    count += jewelery_set[s - min_char];
   }
   return count;
 }
