@@ -14,6 +14,8 @@
 // limitations under the License.
 //
 
+#include <stdexcept>
+#include <limits>
 #include <gtest/gtest.h>
 #include <anagram_lib.hpp>
 
@@ -60,12 +62,43 @@ TEST(is_anagram, not_anagram_same_length)
 
 TEST(is_anagram, shorter)
 {
-  ASSERT_FALSE(is_anagram(str_char_provider("abcd", "cdcab")));
+  ASSERT_FALSE(is_anagram(str_char_provider("abcd", "cdabc")));
 }
 
 TEST(is_anagram, longer)
 {
   ASSERT_FALSE(is_anagram(str_char_provider("abcdca", "cdcab")));
 }
+
+TEST(is_anagram, small_char_in_1st_str)
+{
+  ASSERT_THROW(is_anagram(str_char_provider("abc0dca", "cdcab")), std::exception);
+}
+
+TEST(is_anagram, small_char_in_2nd_str)
+{
+  ASSERT_THROW(is_anagram(str_char_provider("cdcab", "abc0dca")), std::exception);
+}
+
+TEST(is_anagram, big_char_in_1st_str)
+{
+  ASSERT_THROW(is_anagram(str_char_provider("abcdca|", "cdcab")), std::exception);
+}
+
+TEST(is_anagram, big_char_in_2nd_str)
+{
+  ASSERT_THROW(is_anagram(str_char_provider("cdcab", "abc}")), std::exception);
+}
+
+TEST(is_anagram, invalid_char_in_2nd_not_anagram)
+{
+  ASSERT_FALSE(is_anagram(str_char_provider("cdcab", "ccddabc}")));
+}
+
+// This test is too slow
+//TEST(is_anagram, frequency_and_length_overflow)
+//{
+//  ASSERT_THROW(is_anagram([]() { return 'a'; }), std::exception);
+//}
 
 } // namespace yatest
