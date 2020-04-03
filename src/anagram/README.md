@@ -1,4 +1,4 @@
-# Brackets
+# Anagrams
 
 Checks if 2 strings are [anagrams](https://en.wikipedia.org/wiki/Anagram). 
 
