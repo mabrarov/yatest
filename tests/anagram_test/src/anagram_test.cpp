@@ -95,10 +95,14 @@ TEST(is_anagram, invalid_char_in_2nd_not_anagram)
   ASSERT_FALSE(is_anagram(str_char_provider("cdcab", "ccddabc}")));
 }
 
-// This test is too slow
-//TEST(is_anagram, frequency_and_length_overflow)
-//{
-//  ASSERT_THROW(is_anagram([]() { return 'a'; }), std::exception);
-//}
+TEST(is_anagram, frequency_and_length_overflow)
+{
+  ASSERT_THROW(is_anagram([]() { return 'a'; }, 2, 4), std::exception);
+}
+
+TEST(is_anagram, length_and_frequency_overflow)
+{
+  ASSERT_THROW(is_anagram([]() { return 'a'; }, 4, 2), std::exception);
+}
 
 } // namespace yatest
