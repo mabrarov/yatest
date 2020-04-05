@@ -17,13 +17,18 @@
 #ifndef YATEST_ANAGRAM_LIB_HPP
 #define YATEST_ANAGRAM_LIB_HPP
 
+#include <limits>
 #include <functional>
 
 namespace yatest {
 
+typedef std::size_t frequency_type;
+typedef std::size_t length_type;
 typedef std::function<char()> char_provider;
 
-bool is_anagram(char_provider str);
+bool is_anagram(char_provider str,
+    frequency_type max_frequency = (std::numeric_limits<frequency_type>::max)(),
+    length_type max_length = (std::numeric_limits<length_type>::max)());
 
 }
 

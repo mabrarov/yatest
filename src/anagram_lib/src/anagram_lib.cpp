@@ -15,7 +15,6 @@
 //
 
 #include <stdexcept>
-#include <limits>
 #include <vector>
 #include <string>
 #include <anagram_lib.hpp>
@@ -28,14 +27,9 @@ const char end_char = '\n';
 
 }
 
-bool yatest::is_anagram(char_provider str)
+bool yatest::is_anagram(char_provider str, frequency_type max_frequency,
+    length_type max_length)
 {
-  typedef std::size_t frequency_type;
-  typedef std::size_t length_type;
-
-  const frequency_type max_frequency = (std::numeric_limits<frequency_type>::max)();
-  const length_type max_length = (std::numeric_limits<length_type>::max)();
-
   std::vector<frequency_type> dict(max_char - min_char + 1, 0);
   length_type length = 0;
   while (true)
