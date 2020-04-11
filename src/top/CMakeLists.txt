@@ -26,5 +26,6 @@ target_compile_definitions(top
 target_link_libraries(top
     PRIVATE
     Yatest::coverage
+    Yatest::mull
     Yatest::codecvt_cast
     Yatest::top_lib)

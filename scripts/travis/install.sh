@@ -65,6 +65,12 @@ if [[ "${COVERAGE_BUILD_CANDIDATE}" -ne 0 ]]; then
 fi
 export COVERAGE_BUILD
 
+MUTATION_TESTING=0
+if [[ "${MUTATION_TESTING_CANDIDATE}" -ne 0 ]]; then
+  MUTATION_TESTING=1
+fi
+export MUTATION_TESTING
+
 if [[ "${COVERAGE_BUILD}" -ne 0 ]]; then
   echo "Installing Codecov from pip package"
   travis_retry pip3 install --user --upgrade pip

@@ -29,4 +29,5 @@ target_include_directories(top_lib
 
 target_link_libraries(top_lib
     PRIVATE
-    Yatest::coverage)
+    Yatest::coverage
+    Yatest::mull)

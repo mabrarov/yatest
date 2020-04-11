@@ -7,7 +7,8 @@ add_executable(top_test
 target_link_libraries(top_test
     PRIVATE
     Yatest::coverage
+    Yatest::mull
     gtest_main
     Yatest::top_lib)
 
-add_test(NAME top_test COMMAND top_test)
+add_test(NAME top_test COMMAND ${YATEST_CTEST_COMMAND} $<TARGET_FILE:top_test>)

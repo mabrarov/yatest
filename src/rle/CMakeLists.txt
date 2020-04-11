@@ -22,5 +22,6 @@ target_compile_definitions(rle PRIVATE ${compile_definitions})
 target_link_libraries(rle
     PRIVATE
     Yatest::coverage
+    Yatest::mull
     Yatest::codecvt_cast
     Yatest::rle_lib)

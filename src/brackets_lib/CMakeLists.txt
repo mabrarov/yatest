@@ -29,4 +29,5 @@ target_include_directories(brackets_lib
 
 target_link_libraries(brackets_lib
     PRIVATE
-    Yatest::coverage)
+    Yatest::coverage
+    Yatest::mull)

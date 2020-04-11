@@ -7,7 +7,8 @@ add_executable(stone_jewellery_test
 target_link_libraries(stone_jewellery_test
     PRIVATE
     Yatest::coverage
+    Yatest::mull
     gtest_main
     Yatest::stone_jewellery_lib)
 
-add_test(NAME stone_jewellery_test COMMAND stone_jewellery_test)
+add_test(NAME stone_jewellery_test COMMAND ${YATEST_CTEST_COMMAND} $<TARGET_FILE:stone_jewellery_test>)

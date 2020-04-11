@@ -18,6 +18,12 @@ generate_cmd="${generate_cmd} -D CMAKE_C_COMPILER=\"${C_COMPILER}\""
 generate_cmd="${generate_cmd} -D CMAKE_CXX_COMPILER=\"${CXX_COMPILER}\""
 generate_cmd="${generate_cmd} -D CMAKE_BUILD_TYPE=\"${BUILD_TYPE}\""
 generate_cmd="${generate_cmd} -D YATEST_COVERAGE=\"${COVERAGE_BUILD}\""
+generate_cmd="${generate_cmd} -D YATEST_MULL=\"${MUTATION_TESTING}\""
+
+if [[ "${MUTATION_TESTING}" -ne 0 ]]; then
+  generate_cmd="${generate_cmd} -D CMAKE_EXPORT_COMPILE_COMMANDS=ON -D YATEST_CTEST_COMMAND=\"mull-cxx;--test-framework;GoogleTest;--compdb-path;${BUILD_HOME}/compile_commands.json\""
+fi
+
 generate_cmd="${generate_cmd} \"${TRAVIS_BUILD_DIR}\""
 echo "CMake project generation command: ${generate_cmd}"
 eval "${generate_cmd}"

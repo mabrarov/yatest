@@ -26,5 +26,6 @@ target_compile_definitions(brackets
 target_link_libraries(brackets
     PRIVATE
     Yatest::coverage
+    Yatest::mull
     Yatest::codecvt_cast
     Yatest::brackets_lib)

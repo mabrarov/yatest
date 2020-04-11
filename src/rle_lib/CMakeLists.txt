@@ -29,4 +29,5 @@ target_include_directories(rle_lib
 
 target_link_libraries(rle_lib
     PRIVATE
-    Yatest::coverage)
+    Yatest::coverage
+    Yatest::mull)

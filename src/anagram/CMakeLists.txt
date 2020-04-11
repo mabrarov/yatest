@@ -24,4 +24,5 @@ target_compile_definitions(anagram
 target_link_libraries(anagram
     PRIVATE
     Yatest::coverage
+    Yatest::mull
     Yatest::anagram_lib)

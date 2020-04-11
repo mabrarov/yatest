@@ -7,7 +7,8 @@ add_executable(brackets_test
 target_link_libraries(brackets_test
     PRIVATE
     Yatest::coverage
+    Yatest::mull
     gtest_main
     Yatest::brackets_lib)
 
-add_test(NAME brackets_test COMMAND brackets_test)
+add_test(NAME brackets_test COMMAND ${YATEST_CTEST_COMMAND} $<TARGET_FILE:brackets_test>)

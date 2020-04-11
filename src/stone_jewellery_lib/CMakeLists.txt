@@ -29,4 +29,5 @@ target_include_directories(stone_jewellery_lib
 
 target_link_libraries(stone_jewellery_lib
     PRIVATE
-    Yatest::coverage)
+    Yatest::coverage
+    Yatest::mull)

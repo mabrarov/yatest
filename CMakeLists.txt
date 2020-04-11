@@ -2,6 +2,11 @@ cmake_minimum_required(VERSION 3.2)
 project(yatest)
 
 option(YATEST_COVERAGE "Add coverage flags for compiler and linker" OFF)
+option(YATEST_MULL "Add Mull mutation testing flags for compiler and linker" OFF)
+
+if(NOT DEFINED YATEST_CTEST_COMMAND)
+    set(YATEST_CTEST_COMMAND "")
+endif()
 
 # Turn on grouping of projects
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
@@ -12,6 +17,8 @@ set(project_group_tests "tests")
 
 # Interface-only target for turning on code coverage
 add_subdirectory(cmake/coverage)
+# Interface-only target for mutation testing
+add_subdirectory(cmake/mull)
 
 add_subdirectory(extern/googletest)
 set_target_properties(gtest PROPERTIES FOLDER "${project_group_extern}/gtest")

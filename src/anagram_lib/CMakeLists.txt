@@ -24,4 +24,5 @@ target_include_directories(anagram_lib
 
 target_link_libraries(anagram_lib
     PRIVATE
+    Yatest::mull
     Yatest::coverage)

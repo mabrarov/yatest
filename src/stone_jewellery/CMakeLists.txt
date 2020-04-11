@@ -22,4 +22,5 @@ target_compile_definitions(stone_jewellery
 target_link_libraries(stone_jewellery
     PRIVATE
     Yatest::coverage
+    Yatest::mull
     Yatest::stone_jewellery_lib)
