@@ -114,3 +114,4 @@ Refer to
 1. [src/rle/README.md](src/rle/README.md)
 1. [src/stone_jewellery/README.md](src/stone_jewellery/README.md)
 1. [src/anagram/README.md](src/anagram/README.md)
+1. [src/brackets_gen/README.md](src/brackets_gen/README.md)
