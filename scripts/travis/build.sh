@@ -5,7 +5,9 @@ set -e
 # shellcheck source=travis_retry.sh
 source "${TRAVIS_BUILD_DIR}/scripts/travis/travis_retry.sh"
 
-codecov_flag="${TRAVIS_OS_NAME}__$(uname -r | sed -r 's/[[:space:]]|[\\\.\/:]/_/g')__${CXX_COMPILER_FAMILY}_$(${CXX_COMPILER} -dumpversion)"
+c_compiler_family="$(echo "${C_COMPILER:-gcc}" | sed -r 's/^([^\-]+)(\-.*)?$/\1/;t;d')"
+c_compiler_major_version="$(${C_COMPILER:-gcc} --version | sed -r "s/^(.*[[:space:]]+)?${c_compiler_family}[[:space:]]+[^[:digit:]]*([[:digit:]]+)(\..*)?$/\2/;t;d")"
+codecov_flag="${TRAVIS_OS_NAME}__$(uname -r | sed -r 's/[[:space:]]|[\\\.\/:]/_/g')__${c_compiler_family}_${c_compiler_major_version}"
 codecov_flag="${codecov_flag//[.-]/_}"
 
 echo "Preparing build dir at ${BUILD_HOME}"
@@ -35,9 +37,9 @@ fi
 ctest --build-config "${BUILD_TYPE}" --verbose
 
 if [[ "${COVERAGE_BUILD}" -ne 0 ]]; then
-  echo "Caclulating coverage at ${BUILD_HOME}/lcov-test.info"
+  echo "Calculating coverage at ${BUILD_HOME}/lcov-test.info"
   lcov -c -d "${BUILD_HOME}" -o lcov-test.info --rc lcov_branch_coverage=1
-  echo "Caclulating coverage delta at ${BUILD_HOME}/lcov.info"
+  echo "Calculating coverage delta at ${BUILD_HOME}/lcov.info"
   lcov -a lcov-base.info -a lcov-test.info -o lcov.info --rc lcov_branch_coverage=1
   echo "Excluding 3rd party code from coverage data located at ${BUILD_HOME}/lcov.info"
   lcov -r lcov.info \
