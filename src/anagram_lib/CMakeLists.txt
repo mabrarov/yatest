@@ -14,6 +14,8 @@ add_library(anagram_lib STATIC
 
 add_library(Yatest::anagram_lib ALIAS anagram_lib)
 
+target_compile_features(anagram_lib PUBLIC cxx_std_11)
+
 target_compile_definitions(anagram_lib
     PUBLIC
     ${compile_definitions})
