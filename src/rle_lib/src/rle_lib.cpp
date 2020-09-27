@@ -31,7 +31,7 @@ std::string yatest::rle(const std::string& str)
   result.reserve(length);
   char prev_char = 0;
   std::size_t prev_char_count = 0;
-  for (int i = 0; i < length; ++i)
+  for (std::string::size_type i = 0; i < length; ++i)
   {
     const auto current_char = str[i];
     // Validate: str should consist of A-Z symbols only
