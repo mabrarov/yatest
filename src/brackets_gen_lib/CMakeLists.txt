@@ -14,6 +14,8 @@ add_library(brackets_gen_lib STATIC
 
 add_library(Yatest::brackets_gen_lib ALIAS brackets_gen_lib)
 
+target_compile_features(brackets_gen_lib PUBLIC cxx_std_11)
+
 target_compile_definitions(brackets_gen_lib
     PUBLIC
     ${compile_definitions})
