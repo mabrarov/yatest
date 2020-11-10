@@ -154,6 +154,36 @@ matrix:
         - BUILD_TYPE: 'DEBUG'
       compiler: 'gcc'
       addons: *apt-gcc6
+    # Clang 11.0
+    - os: 'linux'
+      dist: 'bionic'
+      env:
+        - C_COMPILER: 'clang-11'
+        - CXX_COMPILER: 'clang++-11'
+        - CMAKE_VERSION: '3.18.2'
+        - BUILD_TYPE: 'RELEASE'
+      compiler: 'clang'
+      addons: &apt-clang11
+        apt:
+          packages:
+            - 'cmake'
+            - 'cmake-data'
+            - 'clang-11'
+            - 'curl'
+            - 'ca-certificates'
+          sources:
+            - 'ubuntu-toolchain-r-test'
+            - sourceline: 'deb http://apt.llvm.org/bionic/ llvm-toolchain-bionic-11 main'
+              key_url: 'https://apt.llvm.org/llvm-snapshot.gpg.key'
+    - os: 'linux'
+      dist: 'bionic'
+      env:
+        - C_COMPILER: 'clang-11'
+        - CXX_COMPILER: 'clang++-11'
+        - CMAKE_VERSION: '3.18.2'
+        - BUILD_TYPE: 'DEBUG'
+      compiler: 'clang'
+      addons: *apt-clang11
     # Clang 10.0
     - os: 'linux'
       dist: 'bionic'
