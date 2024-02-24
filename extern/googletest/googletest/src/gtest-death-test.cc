@@ -1296,9 +1296,16 @@ static void StackLowerThanAddress(const void* ptr, bool* result) {
 GTEST_ATTRIBUTE_NO_SANITIZE_ADDRESS_
 GTEST_ATTRIBUTE_NO_SANITIZE_HWADDRESS_
 static bool StackGrowsDown() {
+#ifdef __GNUC__
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wmaybe-uninitialized"
+#endif
   int dummy;
   bool result;
   StackLowerThanAddress(&dummy, &result);
+#ifdef __GNUC__
+#pragma GCC diagnostic pop
+#endif
   return result;
 }
 #  endif  // GTEST_HAS_CLONE
