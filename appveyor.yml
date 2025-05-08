@@ -28,6 +28,10 @@ environment:
   CODECOV_VERSION: '2.1.13'
 
   matrix:
+    - APPVEYOR_BUILD_WORKER_IMAGE: 'Visual Studio 2022'
+      TOOLCHAIN: 'msvc'
+      MSVC_VERSION: '14.3'
+      RUNTIME_LINKAGE: 'static'
     - APPVEYOR_BUILD_WORKER_IMAGE: 'Visual Studio 2019'
       TOOLCHAIN: 'msvc'
       MSVC_VERSION: '14.2'
